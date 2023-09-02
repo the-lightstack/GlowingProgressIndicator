@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:glowing_indicator/glowing_progress_indicator.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'animated_glowing_progress_indicator.dart';
 
 void main() {
   runApp(const MainApp());
@@ -24,7 +25,7 @@ class _MainAppState extends State<MainApp> {
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.check),
           onPressed: () => setState(() {
-            completedTodos = (completedTodos + 1) % maxTodos;
+            completedTodos = (completedTodos + 1) % (maxTodos + 1);
           }),
         ),
         body: Container(
@@ -35,38 +36,41 @@ class _MainAppState extends State<MainApp> {
             Color.fromARGB(255, 7, 7, 170),
           ], begin: Alignment.topRight)),
           child: Center(
-            child: GlowingProgressIndicator(
-                progress: completedTodos / maxTodos,
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("$completedTodos",
-                              style: GoogleFonts.rubik(
-                                  textStyle: const TextStyle(
-                                      fontSize: 45,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600))),
-                          Text("/$maxTodos",
-                              style: GoogleFonts.rubik(
-                                  textStyle: TextStyle(
-                                      fontSize: 25,
-                                      color: Colors.grey.shade400,
-                                      fontWeight: FontWeight.w400))),
-                        ],
-                      ),
-                      Text("TODO's",
-                          style: GoogleFonts.rubik(
-                              textStyle: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.grey.shade300,
-                                  fontWeight: FontWeight.w500)))
-                    ],
-                  ),
-                )),
+            child: AnimatedGlowingProgressIndicator(
+              // progress: completedTodos / maxTodos,
+
+              progress: completedTodos / maxTodos,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("$completedTodos",
+                            style: GoogleFonts.rubik(
+                                textStyle: const TextStyle(
+                                    fontSize: 45,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600))),
+                        Text("/$maxTodos",
+                            style: GoogleFonts.rubik(
+                                textStyle: TextStyle(
+                                    fontSize: 25,
+                                    color: Colors.grey.shade400,
+                                    fontWeight: FontWeight.w400))),
+                      ],
+                    ),
+                    Text("TODO's",
+                        style: GoogleFonts.rubik(
+                            textStyle: TextStyle(
+                                fontSize: 15,
+                                color: Colors.grey.shade300,
+                                fontWeight: FontWeight.w500)))
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
       ),

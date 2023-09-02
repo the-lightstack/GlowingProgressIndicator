@@ -25,14 +25,12 @@ class GlowingProgressIndicator extends StatelessWidget {
               ),
               BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                  child: Container(
-                    child: CustomPaint(
-                      painter: _FullCircleLeadPainter(),
-                    ),
+                  child: CustomPaint(
+                    painter: _FullCircleLeadPainter(),
                   )),
               CustomPaint(painter: _InnerLightTubePainter(progress)),
               BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                  filter: ImageFilter.blur(sigmaX: 0.1, sigmaY: 0.1),
                   child: Container(color: Colors.black.withOpacity(0))),
               Center(child: child ?? Container())
             ],
