@@ -4,8 +4,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class GlowingProgressIndicator extends StatelessWidget {
-  const GlowingProgressIndicator({super.key, required this.progress});
+  const GlowingProgressIndicator(
+      {super.key, required this.progress, this.child});
   final double progress;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class GlowingProgressIndicator extends StatelessWidget {
               BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
                   child: Container(color: Colors.black.withOpacity(0))),
+              Center(child: child ?? Container())
             ],
           ),
         ],
