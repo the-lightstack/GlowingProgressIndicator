@@ -6,13 +6,27 @@ void main() {
   runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  final maxTodos = 12;
+  int completedTodos = 1;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.check),
+          onPressed: () => setState(() {
+            completedTodos = (completedTodos + 1) % maxTodos;
+          }),
+        ),
         body: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(colors: [
@@ -22,17 +36,28 @@ class MainApp extends StatelessWidget {
           ], begin: Alignment.topRight)),
           child: Center(
             child: GlowingProgressIndicator(
-                progress: 4 / 6,
+                progress: completedTodos / maxTodos,
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("4/6",
-                          style: GoogleFonts.rubik(
-                              textStyle: const TextStyle(
-                                  fontSize: 35,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600))),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("$completedTodos",
+                              style: GoogleFonts.rubik(
+                                  textStyle: const TextStyle(
+                                      fontSize: 45,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600))),
+                          Text("/$maxTodos",
+                              style: GoogleFonts.rubik(
+                                  textStyle: TextStyle(
+                                      fontSize: 25,
+                                      color: Colors.grey.shade400,
+                                      fontWeight: FontWeight.w400))),
+                        ],
+                      ),
                       Text("TODO's",
                           style: GoogleFonts.rubik(
                               textStyle: TextStyle(

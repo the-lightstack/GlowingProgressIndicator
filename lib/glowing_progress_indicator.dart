@@ -53,7 +53,7 @@ class _OuterGlowPainter extends CustomPainter {
     final fullCanvasRect = Rect.fromLTWH(0, 0, size.width, size.height);
     final strokePaint = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 10
+      ..strokeWidth = 15
       ..color = Colors.blue.shade500
       ..strokeCap = StrokeCap.round;
     canvas.drawArc(
@@ -97,7 +97,7 @@ class _InnerLightTubePainter extends CustomPainter {
     final whiteSmall = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 7
-      ..color = Colors.blue.shade100
+      ..color = Colors.white
       ..strokeCap = StrokeCap.round;
     canvas.drawArc(
         fullCanvasRect, -.5 * pi, 2 * pi * progress, false, whiteSmall);
