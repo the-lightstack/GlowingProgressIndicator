@@ -17,18 +17,25 @@ class _AnimatedGlowingProgressIndicatorState
     with TickerProviderStateMixin {
   late AnimationController _animationController;
 
-  @override
-  void initState() {
-    super.initState();
+  void animateProgress(begin, end) {
+    if (begin > end) {
+      return;
+    }
     _animationController = AnimationController(
-        lowerBound: 0,
-        upperBound: widget.progress,
+        lowerBound: begin,
+        upperBound: end,
         vsync: this,
         duration: const Duration(milliseconds: 400));
     _animationController.addListener(() {
       setState(() {});
     });
     _animationController.forward();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    animateProgress(0.0, widget.progress);
   }
 
   @override
@@ -38,23 +45,12 @@ class _AnimatedGlowingProgressIndicatorState
       return;
     }
     _animationController.dispose();
-    _animationController = AnimationController(
-        lowerBound: oldWidget.progress,
-        upperBound: widget.progress,
-        vsync: this,
-        duration: const Duration(milliseconds: 400));
-    _animationController.addListener(() {
-      setState(() {});
-    });
-
-    print(
-        "${_animationController.lowerBound} -> ${_animationController.upperBound}");
-    _animationController.forward();
+    animateProgress(oldWidget.progress, widget.progress);
   }
 
   @override
   void dispose() {
-    // Properly dispose the controller. This is important!
+    // Properly dispose the controller.
     _animationController.dispose();
     super.dispose();
   }
